@@ -1,7 +1,8 @@
 package com.example.siberspoke.data
 
+import android.widget.ImageView
+
 data class Pokemon(
-    var pokemonNumber: Int,
-    var pokemonName: String,
-    var pokemonUrl: String
+    var name: String,
+    var image: ImageView
 )

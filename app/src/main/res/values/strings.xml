@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SibersPoke</string>
+    <string name="picture_of_pokemon">Picture of pokemon</string>
 </resources>

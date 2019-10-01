@@ -8,8 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.siberspoke.R
+import com.example.siberspoke.data.Pokemon
 import com.example.siberspoke.databinding.PokelistFragmentBinding
-import me.sargunvohra.lib.pokekotlin.client.PokeApiClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class PokeListFragment : Fragment() {
 
@@ -34,12 +36,12 @@ class PokeListFragment : Fragment() {
         binding.pokeListViewModel = viewModel
         binding.lifecycleOwner = this
 
-        updatePokemon()
+        // Retrofit Builder
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://pokeapi.co/api/v2/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
         return binding.root
-    }
-
-    private fun updatePokemon() {
-        binding.pokeText.text = viewModel.pokemonName.value.toString()
     }
 }

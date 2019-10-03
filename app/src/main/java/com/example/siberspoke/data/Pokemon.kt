@@ -1,6 +1,10 @@
 package com.example.siberspoke.data
 
 data class Pokemon(
-    var name: String,
-    var url: String
+    val name: String,
+    val url: String,
+    val number: Int
 )
+fun getNumber() {
+
+}

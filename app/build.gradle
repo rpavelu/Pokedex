@@ -25,6 +25,8 @@ android {
     dataBinding {
         enabled = true
     }
+
+    apply plugin: 'kotlin-kapt'
 }
 
 repositories {
@@ -49,6 +51,10 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    kapt 'com.github.bumptech.glide:compiler:4.4.0'
 
     // Fragment navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'

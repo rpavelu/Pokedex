@@ -1,6 +1,6 @@
 package com.example.siberspoke.data
 
-data class Pokemon(
+data class PokemonDto(
     val name: String,
-    val image: String
+    val url: String
 )

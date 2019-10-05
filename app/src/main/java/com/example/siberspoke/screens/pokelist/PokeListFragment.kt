@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import com.example.siberspoke.*
@@ -34,12 +35,16 @@ class PokeListFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(PokeListViewModel::class.java)
 
         binding.pokeListViewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.getInfo(0)
+        viewModel.getData(0)
 
-        val adapter = PokeListAdapter(context!!)
+        val adapter = PokeListAdapter()
         binding.pokemonRecyclerview.adapter = adapter
+
+        viewModel.pokemonList.observe(viewLifecycleOwner, Observer {
+            adapter.addPokemonList(viewModel.pokemonList.value.orEmpty())
+        })
 
         return binding.root
     }

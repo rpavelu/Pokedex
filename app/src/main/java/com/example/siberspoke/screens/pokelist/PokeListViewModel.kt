@@ -13,40 +13,33 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.siberspoke.PokeListAdapter
 import com.example.siberspoke.PokemonsNetworkConverterImpl
+import com.example.siberspoke.data.Pokemon
 import com.example.siberspoke.data.PokemonDto
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 
-class PokeListViewModel : AndroidViewModel(Application()) {
+class PokeListViewModel(
+    private val pokeListRepository: PokeListRepository
+) : ViewModel(), CoroutineScope {
 
-    private val _pokemonList = MutableLiveData<List<PokemonDto>>()
-    val pokemonList: LiveData<List<PokemonDto>>
+    private val _pokemonList = MutableLiveData<List<Pokemon>>()
+    val pokemonList: LiveData<List<Pokemon>>
         get() = _pokemonList
 
-    fun getInfo(offset: Int) {
-        val service = PokeApiService.create()
-        val pokemonResponseCall = service.getPokemonData(30, offset)
+    private val viewModelJob = SupervisorJob()
+    override val coroutineContext: CoroutineContext = Dispatchers.Main + viewModelJob
 
-        pokemonResponseCall.enqueue(object : Callback<PokeApiResponse> {
+    override fun onCleared() {
+        viewModelJob.cancel()
+    }
 
-            override fun onResponse(
-                call: Call<PokeApiResponse>,
-                response: Response<PokeApiResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val pokeApiResponse = response.body()
-                    val pokeList = pokeApiResponse?.results
-
-                    _pokemonList.value = pokeList
-                    val pokeListToAdd = PokemonsNetworkConverterImpl().convert(pokeApiResponse!!)
-
-                    // Че тут сделать >_<
-                    PokeListAdapter(getApplication()).addPokemonList(pokeListToAdd)
-                }
-            }
-
-            override fun onFailure(call: Call<PokeApiResponse>, t: Throwable) {
-                Log.e("PokeListViewModel", " onFailure: " + t.message)
-            }
-        })
+    fun getData(offset: Int) {
+        launch {
+            pokeListRepository.getData(offset)
+        }
     }
 }

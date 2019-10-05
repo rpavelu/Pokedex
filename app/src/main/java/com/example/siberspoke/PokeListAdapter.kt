@@ -11,10 +11,11 @@ import com.bumptech.glide.Glide
 import com.example.siberspoke.data.Pokemon
 
 
-class PokeListAdapter(private val context: Context) :
+class PokeListAdapter() :
     RecyclerView.Adapter<PokeListAdapter.ViewHolder>() {
 
-    private lateinit var pokemonData: List<Pokemon>
+    //private lateinit var pokemonData: List<Pokemon>
+    private var pokemonData: List<Pokemon> = emptyList()
 
     fun addPokemonList(pokemonList: List<Pokemon>) {
         pokemonData = pokemonList
@@ -30,7 +31,7 @@ class PokeListAdapter(private val context: Context) :
         val poke: Pokemon = pokemonData[position]
         holder.pokemonTextView.text = poke.name
 
-        Glide.with(context)
+        Glide.with(holder.itemView.context)
             .load(poke.image)
             .into(holder.pokemonImageView)
     }

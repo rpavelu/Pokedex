@@ -9,8 +9,7 @@ import retrofit2.http.Query
 interface PokeApiService {
 
     @GET("pokemon")
-    fun getPokemonData(@Query("limit") limit: Int, @Query("offset") offset: Int): Call<PokeApiResponse>
-    //fun getPokemon(): Deferred<Response<List<Pokemon>>>
+    suspend fun getPokemonData(@Query("limit") limit: Int, @Query("offset") offset: Int): PokeApiResponse
 
     companion object Factory {
         fun create(): PokeApiService {

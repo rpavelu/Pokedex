@@ -1,6 +1,5 @@
 package com.example.siberspoke.screens.pokelist
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.get
-import com.example.siberspoke.*
+import com.example.siberspoke.PokeListAdapter
+import com.example.siberspoke.PokemonsNetworkConverterImpl
+import com.example.siberspoke.R
+import com.example.siberspoke.data.Pokemon
 import com.example.siberspoke.databinding.PokelistFragmentBinding
-import kotlinx.android.synthetic.main.pokelist_fragment.*
 
 class PokeListFragment : Fragment() {
 
@@ -24,7 +26,6 @@ class PokeListFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.pokelist_fragment,
@@ -32,7 +33,11 @@ class PokeListFragment : Fragment() {
             false
         )
 
-        viewModel = ViewModelProviders.of(this).get(PokeListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return PokeListViewModel(PokeListRepositoryImpl(PokemonsNetworkConverterImpl())) as T
+            }
+        }).get(PokeListViewModel::class.java)
 
         binding.pokeListViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

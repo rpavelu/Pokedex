@@ -2,7 +2,6 @@ package com.example.siberspoke
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -11,10 +10,9 @@ import com.bumptech.glide.Glide
 import com.example.siberspoke.data.Pokemon
 
 
-class PokeListAdapter() :
+class PokeListAdapter :
     RecyclerView.Adapter<PokeListAdapter.ViewHolder>() {
 
-    //private lateinit var pokemonData: List<Pokemon>
     private var pokemonData: List<Pokemon> = emptyList()
 
     fun addPokemonList(pokemonList: List<Pokemon>) {

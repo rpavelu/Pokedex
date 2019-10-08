@@ -1,6 +1,7 @@
 package com.example.siberspoke.screens.pokelist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.siberspoke.PokeListAdapter
 import com.example.siberspoke.PokemonsNetworkConverterImpl
 import com.example.siberspoke.R
-import com.example.siberspoke.data.Pokemon
 import com.example.siberspoke.databinding.PokelistFragmentBinding
 
 class PokeListFragment : Fragment() {
@@ -49,6 +49,7 @@ class PokeListFragment : Fragment() {
 
         viewModel.pokemonList.observe(viewLifecycleOwner, Observer {
             adapter.addPokemonList(viewModel.pokemonList.value.orEmpty())
+            Log.i("PokeListFragment", "adapter called")
         })
 
         return binding.root

@@ -1,6 +1,6 @@
 package com.example.siberspoke.screens.pokelist
 
-import com.example.siberspoke.data.Pokemon
+import com.example.siberspoke.screens.pokelist.data.Pokemon
 import com.example.siberspoke.screens.pokelist.pagination.States
 
 class PokeListViewModelDelegate {

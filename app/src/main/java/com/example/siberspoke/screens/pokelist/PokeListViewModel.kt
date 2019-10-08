@@ -1,9 +1,10 @@
 package com.example.siberspoke.screens.pokelist
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.siberspoke.data.Pokemon
+import com.example.siberspoke.screens.pokelist.data.Pokemon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -28,7 +29,8 @@ class PokeListViewModel(
 
     fun getData(offset: Int) {
         launch {
-            _pokemonList.value = pokeListRepository.getData(offset)
+            Log.i("PokeListViewModel", "getPokemonListData launched")
+            _pokemonList.value = pokeListRepository.getPokemonListData(offset)
         }
     }
 }

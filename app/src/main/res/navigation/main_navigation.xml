@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
     app:startDestination="@+id/pokelist_destination">
 
     <fragment
         android:id="@+id/pokelist_destination"
         android:name="com.example.siberspoke.screens.pokelist.PokeListFragment"
-        android:label="pokelist_fragment" />
+        android:label="pokelist_fragment" >
+        <action
+            android:id="@+id/action_pokelist_destination_to_pokeinfo_destination"
+            app:destination="@id/pokeinfo_destination" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokeinfo_destination"
+        android:name="com.example.siberspoke.screens.pokeinfo.PokeInfoFragment"
+        android:label="pokeinfo_fragment">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_pokeinfo_destination_to_pokelist_destination"
+            app:destination="@id/pokelist_destination" />
+    </fragment>
 </navigation>

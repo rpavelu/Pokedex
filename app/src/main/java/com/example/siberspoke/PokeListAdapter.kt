@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.example.siberspoke.data.Pokemon
+import com.example.siberspoke.screens.pokelist.data.Pokemon
 
 
 class PokeListAdapter :

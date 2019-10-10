@@ -18,7 +18,15 @@ private const val IMAGE_SUFFIX = ".png"
 class PokemonsNetworkConverterImpl : PokemonsNetworkConverter {
 
     override fun convertInfo(response: PokeInfoResponse): PokemonInfo =
-        PokemonInfo(response.height, response.weight)
+        PokemonInfo(response.height, response.weight, response.types[0].type.name)
+
+//        response.types.map { typesList ->
+//            val mTypesList = typesList.type
+//            mTypesList.map { typesTypeList ->
+//                val mName = typesTypeList.name
+//            }
+//            PokemonInfo(response.height, response.weight, mName)
+//        }
 
     override fun convertList(response: PokeListResponse): List<Pokemon> =
         response.results.map { dtoList ->

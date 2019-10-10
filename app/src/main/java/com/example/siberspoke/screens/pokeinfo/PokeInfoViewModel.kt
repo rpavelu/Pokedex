@@ -28,6 +28,10 @@ class PokeInfoViewModel(
     val pokemonWeight: LiveData<Int>
         get() = _pokemonWeight
 
+    private val _pokemonType = MutableLiveData<String>()
+    val pokemonType: LiveData<String>
+        get() = _pokemonType
+
     private val viewModelJob = SupervisorJob()
     override val coroutineContext: CoroutineContext = Dispatchers.Main + viewModelJob
 
@@ -40,6 +44,7 @@ class PokeInfoViewModel(
             _pokemonInfo.value = pokeInfoRepository.getPokemonInfoData()
             _pokemonHeight.value = pokemonInfo.value!!.height
             _pokemonWeight.value = pokemonInfo.value!!.weight
+            _pokemonType.value = pokemonInfo.value!!.type
             Log.i(
                 "PokeInfoViewModel",
                 "getPokemonInfoData launched" + _pokemonInfo.value.toString()

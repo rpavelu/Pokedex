@@ -3,4 +3,5 @@
     <string name="picture_of_pokemon">Picture of pokemon</string>
     <string name="height_format">Height: %d</string>
     <string name="weight_format">Weight: %d</string>
+    <string name="type_format">Type of pokemon: %s</string>
 </resources>

@@ -11,7 +11,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-
 class PokeListViewModel(
     private val pokeListRepository: PokeListRepository
 ) : ViewModel(), CoroutineScope {

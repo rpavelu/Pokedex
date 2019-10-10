@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/pokemon_image_view"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:contentDescription="@string/picture_of_pokemon"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +21,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="@+id/pokemon_image_view"
         app:layout_constraintStart_toEndOf="@+id/pokemon_image_view"
         app:layout_constraintTop_toTopOf="@+id/pokemon_image_view"
         tools:text="Pikachu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

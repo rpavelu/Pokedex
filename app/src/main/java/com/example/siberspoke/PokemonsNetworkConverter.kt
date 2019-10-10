@@ -1,10 +1,13 @@
 package com.example.siberspoke
 
+import com.example.siberspoke.screens.pokeinfo.data.PokemonInfo
+import com.example.siberspoke.screens.pokeinfo.data.network.PokeInfoResponse
 import com.example.siberspoke.screens.pokelist.data.Pokemon
 import com.example.siberspoke.screens.pokelist.data.network.PokeListResponse
 
 interface PokemonsNetworkConverter {
-    fun convert(response: PokeListResponse): List<Pokemon>
+    fun convertList(response: PokeListResponse): List<Pokemon>
+    fun convertInfo(response: PokeInfoResponse): PokemonInfo
 }
 
 private const val IMAGE_URL =
@@ -14,15 +17,18 @@ private const val IMAGE_SUFFIX = ".png"
 
 class PokemonsNetworkConverterImpl : PokemonsNetworkConverter {
 
-    override fun convert(response: PokeListResponse): List<Pokemon> =
-        response.results.map { dto ->
-            val pokemonId = dto.url.split(URL_DIVIDER)
+    override fun convertInfo(response: PokeInfoResponse): PokemonInfo =
+        PokemonInfo(response.height, response.weight)
+
+    override fun convertList(response: PokeListResponse): List<Pokemon> =
+        response.results.map { dtoList ->
+            val pokemonId = dtoList.url.split(URL_DIVIDER)
                 .filterNot {
                     it.isBlank()
                 }.last()
 
             Pokemon(
-                dto.name,
+                dtoList.name,
                 IMAGE_URL + pokemonId + IMAGE_SUFFIX
             )
         }

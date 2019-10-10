@@ -15,7 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Height"
+            tools:text="Height: 4"
+            android:text="@{@string/height_format(pokeInfoViewModel.pokemonInfo.height)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Weight"
+            tools:text="Weight: 60"
+            android:text="@{@string/weight_format(pokeInfoViewModel.pokemonInfo.weight)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pokemon_height" />
 

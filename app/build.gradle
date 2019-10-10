@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
@@ -23,10 +23,9 @@ android {
     }
 
     dataBinding {
+        //noinspection DataBindingWithoutKapt
         enabled = true
     }
-
-    apply plugin: 'kotlin-kapt'
 }
 
 repositories {

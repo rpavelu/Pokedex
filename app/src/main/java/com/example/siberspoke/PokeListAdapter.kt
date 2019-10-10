@@ -8,12 +8,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.siberspoke.screens.pokelist.data.Pokemon
+import com.example.siberspoke.screens.pokelist.listPosition
 
+var pokemonName: String = ""
 
 class PokeListAdapter :
     RecyclerView.Adapter<PokeListAdapter.ViewHolder>() {
-
     private var pokemonData: List<Pokemon> = emptyList()
+    lateinit var mClickListener: ClickListener
+
+
+    fun setOnItemClickListener(aClickListener: ClickListener) {
+        mClickListener = aClickListener
+    }
+
+    interface ClickListener {
+        fun onClick(pos: Int, aView: View)
+    }
 
     fun addPokemonList(pokemonList: List<Pokemon>) {
         pokemonData = pokemonList
@@ -36,9 +47,18 @@ class PokeListAdapter :
 
     override fun getItemCount() = pokemonData.size
 
-    class ViewHolder(
+    inner class ViewHolder(
         itemView: View,
         val pokemonImageView: ImageView = itemView.findViewById(R.id.pokemon_image_view),
         val pokemonTextView: TextView = itemView.findViewById(R.id.pokemon_text_view)
-    ) : RecyclerView.ViewHolder(itemView)
+    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        override fun onClick(v: View) {
+            mClickListener.onClick(adapterPosition, v)
+            pokemonName = pokemonData[listPosition-1].name
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+    }
 }

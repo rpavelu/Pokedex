@@ -42,9 +42,9 @@ class PokeInfoViewModel(
     fun getData() {
         launch {
             _pokemonInfo.value = pokeInfoRepository.getPokemonInfoData()
-            _pokemonHeight.value = pokemonInfo.value!!.height
-            _pokemonWeight.value = pokemonInfo.value!!.weight
-            _pokemonType.value = pokemonInfo.value!!.type
+            _pokemonHeight.value = pokemonInfo.value?.height
+            _pokemonWeight.value = pokemonInfo.value?.weight
+            _pokemonType.value = pokemonInfo.value?.type
             Log.i(
                 "PokeInfoViewModel",
                 "getPokemonInfoData launched" + _pokemonInfo.value.toString()

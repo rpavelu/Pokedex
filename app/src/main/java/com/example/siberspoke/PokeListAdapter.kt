@@ -1,5 +1,6 @@
 package com.example.siberspoke
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -27,7 +28,7 @@ class PokeListAdapter :
     }
 
     fun addPokemonList(pokemonList: List<Pokemon>) {
-        pokemonData = pokemonList
+        pokemonData = pokemonData + pokemonList
         notifyDataSetChanged()
     }
 
@@ -55,6 +56,8 @@ class PokeListAdapter :
         override fun onClick(v: View) {
             mClickListener.onClick(adapterPosition, v)
             pokemonName = pokemonData[listPosition-1].name
+            Log.i("PokeListAdapter", "ListPosition: $listPosition")
+            Log.i("PokeListAdapter", "adapterPosition: $adapterPosition")
         }
 
         init {

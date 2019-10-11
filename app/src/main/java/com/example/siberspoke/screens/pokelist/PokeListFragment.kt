@@ -18,6 +18,7 @@ import com.example.siberspoke.PokeListAdapter
 import com.example.siberspoke.PokemonsNetworkConverterImpl
 import com.example.siberspoke.R
 import com.example.siberspoke.databinding.PokelistFragmentBinding
+import androidx.recyclerview.widget.RecyclerView
 
 // It needs to parse exact Pokemon
 var listPosition: Int = 0
@@ -26,6 +27,13 @@ class PokeListFragment : Fragment() {
 
     private lateinit var viewModel: PokeListViewModel
     private lateinit var binding: PokelistFragmentBinding
+    private var loading = true
+    var offset = 0
+    var visibleItemCount = 0
+    var totalItemCount = 0
+    var previousTotal = 0
+    val visibleThreshold = 10
+    var firstVisibleItem = 0
 
 
     override fun onCreateView(
@@ -51,8 +59,8 @@ class PokeListFragment : Fragment() {
         binding.pokeListViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // Getting data starting from element at 0
-        viewModel.getData(0)
+        // Getting data starting from element at offset (0)
+        viewModel.getData(offset)
 
         // Adding a divider to RecyclerView
         binding.pokemonRecyclerview.addItemDecoration(
@@ -66,6 +74,36 @@ class PokeListFragment : Fragment() {
         val adapter = PokeListAdapter()
         binding.pokemonRecyclerview.adapter = adapter
 
+        // Sick pagination right here
+        val mLayoutManager = LinearLayoutManager(context)
+        binding.pokemonRecyclerview.layoutManager = mLayoutManager
+
+        binding.pokemonRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                visibleItemCount = recyclerView.childCount
+                totalItemCount = mLayoutManager.itemCount
+                firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition()
+
+                if (loading) {
+                    if (totalItemCount > previousTotal) {
+                        loading = false
+                        previousTotal = totalItemCount
+                    }
+                }
+
+                if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                    val initialSize = viewModel.pokemonList.value!!.size
+                    offset += 30
+                    viewModel.getData(offset)
+                    val updatedSize = viewModel.pokemonList.value!!.size
+                    recyclerView.post {adapter.notifyItemRangeInserted(initialSize, updatedSize)}
+                    loading = true
+                    Log.v("...", "Last Item Wow !")
+                }
+            }
+        })
 
         // Setting on click listener to adapter
         adapter.setOnItemClickListener(object : PokeListAdapter.ClickListener {

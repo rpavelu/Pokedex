@@ -10,21 +10,13 @@
         <action
             android:id="@+id/action_pokelist_destination_to_pokeinfo_destination"
             app:destination="@+id/pokeinfo_destination"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/pokeinfo_destination"
         android:name="com.example.siberspoke.screens.pokeinfo.PokeInfoFragment"
-        android:label="pokeinfo_fragment">
-        <action
-            android:id="@+id/action_pokeinfo_destination_to_pokelist_destination"
-            app:destination="@id/pokelist_destination"
-            app:enterAnim="@anim/slide_out_left"
-            app:exitAnim="@anim/slide_in_right"
-            app:popEnterAnim="@anim/slide_out_left"
-            app:popExitAnim="@anim/slide_in_right" />
-    </fragment>
+        android:label="pokeinfo_fragment"/>
 </navigation>

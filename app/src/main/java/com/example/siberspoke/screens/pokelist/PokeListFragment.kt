@@ -51,7 +51,10 @@ class PokeListFragment : Fragment() {
         // Creating ViewModel object
         viewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return PokeListViewModel(PokeListRepositoryImpl(PokemonsNetworkConverterImpl())) as T
+                return PokeListViewModel(PokeListRepositoryImpl(PokemonsNetworkConverterImpl())).also {
+                    // Getting data starting from element at offset (0)
+                    it.getData(offset)
+                } as T
             }
         }).get(PokeListViewModel::class.java)
 
@@ -60,7 +63,7 @@ class PokeListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // Getting data starting from element at offset (0)
-        viewModel.getData(offset)
+        //viewModel.getData(offset)
 
         // Adding a divider to RecyclerView
         binding.pokemonRecyclerview.addItemDecoration(
@@ -90,17 +93,20 @@ class PokeListFragment : Fragment() {
                     if (totalItemCount > previousTotal) {
                         loading = false
                         previousTotal = totalItemCount
+                        Log.i("PokeListFragment","First addPokemonList used")
+                        adapter.addPokemonList(viewModel.pokemonList.value!!)
                     }
                 }
 
                 if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-                    val initialSize = viewModel.pokemonList.value!!.size
+                    loading = false
+                    //val initialSize = offset + 30
                     offset += 30
                     viewModel.getData(offset)
-                    val updatedSize = viewModel.pokemonList.value!!.size
-                    recyclerView.post {adapter.notifyItemRangeInserted(initialSize, updatedSize)}
+                    //val updatedSize = offset + 30
                     loading = true
-                    Log.v("...", "Last Item Wow !")
+                    //recyclerView.post { adapter.notifyItemRangeInserted(initialSize, updatedSize) }
+                    Log.i("PokeListFragment", "Last item")
                 }
             }
         })
@@ -115,7 +121,7 @@ class PokeListFragment : Fragment() {
 
         // Adding Pokemons to pokemonList in ViewModel
         viewModel.pokemonList.observe(viewLifecycleOwner, Observer {
-            adapter.addPokemonList(viewModel.pokemonList.value.orEmpty())
+            adapter.addPokemonList(viewModel.pokemonList.value!!)
             Log.i("PokeListFragment", "adapter called")
         })
 

@@ -1,12 +1,13 @@
 package com.example.siberspoke
 
+import androidx.lifecycle.Transformations.map
 import com.example.siberspoke.screens.pokeinfo.data.PokemonInfo
 import com.example.siberspoke.screens.pokeinfo.data.network.PokeInfoResponse
 import com.example.siberspoke.screens.pokelist.data.Pokemon
 import com.example.siberspoke.screens.pokelist.data.network.PokeListResponse
 
 interface PokemonsNetworkConverter {
-    fun convertList(response: PokeListResponse): List<Pokemon>
+    fun convertList(response: PokeListResponse): MutableList<Pokemon>
     fun convertInfo(response: PokeInfoResponse): PokemonInfo
 }
 
@@ -28,7 +29,7 @@ class PokemonsNetworkConverterImpl : PokemonsNetworkConverter {
 //            PokemonInfo(response.height, response.weight, mName)
 //        }
 
-    override fun convertList(response: PokeListResponse): List<Pokemon> =
+    override fun convertList(response: PokeListResponse): MutableList<Pokemon> =
         response.results.map { dtoList ->
             val pokemonId = dtoList.url.split(URL_DIVIDER)
                 .filterNot {
@@ -39,5 +40,5 @@ class PokemonsNetworkConverterImpl : PokemonsNetworkConverter {
                 dtoList.name,
                 IMAGE_URL + pokemonId + IMAGE_SUFFIX
             )
-        }
+        }.toMutableList()
 }

@@ -15,8 +15,8 @@ class PokeListViewModel(
     private val pokeListRepository: PokeListRepository
 ) : ViewModel(), CoroutineScope {
 
-    private val _pokemonList = MutableLiveData<List<Pokemon>>()
-    val pokemonList: LiveData<List<Pokemon>>
+    private val _pokemonList = MutableLiveData<MutableList<Pokemon>>()
+    val pokemonList: LiveData<MutableList<Pokemon>>
         get() = _pokemonList
 
     private val viewModelJob = SupervisorJob()
@@ -29,7 +29,12 @@ class PokeListViewModel(
     fun getData(offset: Int) {
         launch {
             Log.i("PokeListViewModel", "getPokemonListData launched")
-            _pokemonList.value = pokeListRepository.getPokemonListData(offset)
+            Log.i("PokeListViewModel", "offset: $offset")
+            if (offset == 0)
+                _pokemonList.value = pokeListRepository.getPokemonListData(offset)
+            else
+                _pokemonList.value?.addAll(pokeListRepository.getPokemonListData(offset))
+            Log.i("PokeListViewModel","pokemonList LiveData size: ${_pokemonList.value!!.size}")
         }
     }
 }

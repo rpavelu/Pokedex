@@ -27,8 +27,8 @@ class PokeListAdapter :
         fun onClick(pos: Int, aView: View)
     }
 
-    fun addPokemonList(pokemonList: List<Pokemon>) {
-        pokemonData = pokemonData + pokemonList
+    fun addPokemonList(pokemonList: MutableList<Pokemon>) {
+        pokemonData = pokemonList
         notifyDataSetChanged()
     }
 
@@ -58,6 +58,7 @@ class PokeListAdapter :
             pokemonName = pokemonData[listPosition-1].name
             Log.i("PokeListAdapter", "ListPosition: $listPosition")
             Log.i("PokeListAdapter", "adapterPosition: $adapterPosition")
+            Log.i("PokeListAdapter", "adapterPokemonName: $pokemonName")
         }
 
         init {

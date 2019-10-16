@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.siberspoke.screens.pokelist.data.Pokemon
+import com.example.siberspoke.screens.pokelist.data.PokemonListInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,6 +19,10 @@ class PokeListViewModel(
     private val _pokemonList = MutableLiveData<MutableList<Pokemon>>()
     val pokemonList: LiveData<MutableList<Pokemon>>
         get() = _pokemonList
+
+    private val _pokemonListInfo = MutableLiveData<MutableList<PokemonListInfo>>()
+    val pokemonListInfo: LiveData<MutableList<PokemonListInfo>>
+        get() = _pokemonListInfo
 
     private val viewModelJob = SupervisorJob()
     override val coroutineContext: CoroutineContext = Dispatchers.Main + viewModelJob

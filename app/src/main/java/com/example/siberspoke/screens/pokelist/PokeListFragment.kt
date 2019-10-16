@@ -100,12 +100,9 @@ class PokeListFragment : Fragment() {
 
                 if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                     loading = false
-                    //val initialSize = offset + 30
                     offset += 30
                     viewModel.getData(offset)
-                    //val updatedSize = offset + 30
                     loading = true
-                    //recyclerView.post { adapter.notifyItemRangeInserted(initialSize, updatedSize) }
                     Log.i("PokeListFragment", "Last item")
                 }
             }

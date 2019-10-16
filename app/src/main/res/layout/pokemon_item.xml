@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="88dp"
+    android:layout_height="120dp"
     android:orientation="horizontal"
     android:padding="16dp">
 
@@ -13,6 +13,7 @@
         android:layout_height="64dp"
         android:contentDescription="@string/picture_of_pokemon"
         android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,5 +27,35 @@
         app:layout_constraintStart_toEndOf="@+id/pokemon_image_view"
         app:layout_constraintTop_toTopOf="@+id/pokemon_image_view"
         tools:text="Pikachu" />
+
+    <TextView
+        android:id="@+id/attack_list_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/defense_list_info"
+        app:layout_constraintStart_toStartOf="@+id/defense_list_info"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Attack" />
+
+    <TextView
+        android:id="@+id/defense_list_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/hp_list_info"
+        app:layout_constraintStart_toStartOf="@+id/hp_list_info"
+        app:layout_constraintTop_toBottomOf="@+id/attack_list_info"
+        tools:text="Defense" />
+
+    <TextView
+        android:id="@+id/hp_list_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defense_list_info"
+        tools:text="HP" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
